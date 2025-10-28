@@ -1,18 +1,14 @@
-# OS junk
 .DS_Store
 Thumbs.db
 ehthumbs.db
-Icon?
 ._*
 
-# Node / tooling (if you add tooling later)
 node_modules/
 npm-debug.log*
 yarn-error.log*
 pnpm-lock.yaml
 package-lock.json
 
-# Python venvs and build outputs (if you script packaging)
 venv/
 .env
 .venv/
@@ -21,38 +17,31 @@ __pycache__/
 dist/
 build/
 
-# Editor/IDE
 .vscode/
 .idea/
 *.swp
 *.swo
 *.iml
 
-# Zips/XPI packages and temp bundles
 *.zip
 *.xpi
 *.tar
 *.tar.gz
 
-# Coverage / tests (if used)
 coverage/
 .nyc_output/
 .junit/
 
-# Web-ext artifacts (if you use web-ext for running/signing)
 .web-ext-artifacts/
 web-ext-artifacts/
 .web-ext-log.txt
 
-# Misc logs and temp files
 *.log
 npm-debug.log*
 logs/
 tmp/
 temp/
 
-# Generated maps (if you ever build/minify)
 *.map
 
-# Images cache (if you generate previews)
 screenshots/*.tmp.*
