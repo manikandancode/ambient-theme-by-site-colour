@@ -78,7 +78,7 @@ Changes are saved immediately and apply when you switch tabs, navigate, or refoc
 ## Development
 
 Structure:
-
+```bash
 ambient theme by site colour/
 ├─ manifest.json
 ├─ background.js
@@ -102,7 +102,7 @@ ambient theme by site colour/
 ├─ LICENSE
 ├─ PRIVACY.md
 └─ README.md
-
+```
 
 Notable implementation notes:
 - Internationalization (i18n): All visible strings live in `_locales/en/messages.json`; UI uses `data-i18n` and the scripts set `textContent` from `browser.i18n.getMessage`.
