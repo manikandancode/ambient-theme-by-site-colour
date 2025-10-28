@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title data-i18n="optionsTitle">Ambient Theme by Site Colour Options</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style>
+      :root { color-scheme: light dark; }
+      body { font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto; padding: 16px; line-height: 1.4; }
+      label { display: block; margin: 10px 0 6px; }
+      input[type="number"] { width: 120px; }
+      .row { margin: 12px 0; }
+      .status { color: #0a7; margin-top: 10px; min-height: 1.2em; }
+      .visually-hidden {
+        position: absolute !important;
+        width: 1px; height: 1px;
+        padding: 0; margin: -1px; overflow: hidden;
+        clip: rect(0, 0, 1px, 1px); white-space: nowrap; border: 0;
+      }
+      .help { display: block; color: color-mix(in oklab, CanvasText 65%, Canvas 35%); font-size: 0.9em; margin-top: 4px; }
+      button { padding: 6px 10px; }
+      .grid { display: grid; gap: 8px; align-items: center; grid-template-columns: max-content 1fr; }
+      .grid label { margin: 0; }
+    </style>
+  </head>
+  <body>
+    <h1 data-i18n="optionsTitle">Ambient Theme by Site Colour Options</h1>
+
+    <div class="row">
+      <label for="enabled">
+        <input type="checkbox" id="enabled" />
+        <span data-i18n="enabledLabel">Enable dynamic theming</span>
+      </label>
+    </div>
+
+    <div class="row grid" role="group" aria-labelledby="contrastBlendLegend">
+      <span id="contrastBlendLegend" class="visually-hidden">Contrast and blend</span>
+
+      <label for="minContrast">
+        <span data-i18n="minContrastLabel">Minimum contrast ratio:</span>
+      </label>
+      <div>
+        <input type="number" id="minContrast" step="0.1" min="1" max="21" inputmode="decimal" placeholder="4.5" />
+        <small class="help" data-i18n="minContrastHelp">Range 1.0–21.0. Higher ensures more legible text.</small>
+      </div>
+
+      <label for="toolbarBlend">
+        <span data-i18n="toolbarBlendLabel">Toolbar blend (0..1):</span>
+      </label>
+      <div>
+        <input type="number" id="toolbarBlend" step="0.01" min="0" max="1" inputmode="decimal" placeholder="0.08" />
+        <small class="help" data-i18n="toolbarBlendHelp">Mixes page color with dark base for toolbar readability.</small>
+      </div>
+    </div>
+
+    <div class="row">
+      <p data-i18n="disableSiteHeader">Disable on this site</p>
+      <label class="visually-hidden" for="disableSite">Host</label>
+      <input id="disableSite" placeholder="example.com" autocomplete="off" spellcheck="false" inputmode="url" aria-describedby="hostHelp" />
+      <small id="hostHelp" class="help" data-i18n="hostHelp">Enter a domain like example.com (no http/https, no path).</small>
+      <div>
+        <button id="toggleSite" type="button" data-i18n="toggleSiteButton">Toggle</button>
+      </div>
+    </div>
+
+    <div class="status" id="status" role="status" aria-live="polite"></div>
+
+    <script src="options.js"></script>
+  </body>
+</html>

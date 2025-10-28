@@ -1,0 +1,25 @@
+{
+  "extensionName": { "message": "Ambient Theme by Site Colour" },
+  "extensionDescription": { "message": "Automatically adapts Firefox UI colors to the current webpage’s dominant color." },
+
+  "optionsTitle": { "message": "Ambient Theme by Site Colour Options" },
+  "enabledLabel": { "message": "Enable dynamic theming" },
+  "minContrastLabel": { "message": "Minimum contrast ratio:" },
+  "toolbarBlendLabel": { "message": "Toolbar blend (0..1):" },
+  "disableSiteHeader": { "message": "Disable on this site" },
+  "toggleSiteButton": { "message": "Toggle" },
+  "saved": { "message": "Saved" },
+  "hostDisabled": { "message": "Disabled for this host" },
+  "hostEnabled": { "message": "Enabled for this host" },
+  "invalidHost": { "message": "Enter a valid host name" },
+  "minContrastHelp": { "message": "Range 1.0–21.0. Higher ensures more legible text." },
+  "toolbarBlendHelp": { "message": "Mixes page color with a dark base for toolbar readability." },
+  "hostHelp": { "message": "Enter a domain like example.com (no http/https, no path)." },
+
+  "popupTitle": { "message": "Ambient Popup" },
+  "popupHeader": { "message": "Ambient Theme by Site Colour" },
+  "toggleEnableSite": { "message": "Enable for this site" },
+  "toggleDisableSite": { "message": "Disable for this site" },
+  "moreOptions": { "message": "More options" },
+  "unavailableHere": { "message": "Unavailable on this page" }
+}
