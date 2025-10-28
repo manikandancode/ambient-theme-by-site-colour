@@ -1,12 +1,8 @@
-// background.js (hardened: validation + error handling; logic unchanged)
-
-// ---- Utility: safe logging (kept minimal for production) ----
 function logDebug(...args) {
-  // Uncomment for debugging
-  // console.debug('[ambient-theme]', ...args);
+  
 }
 
-// ---- Color helpers (unchanged logic; added input checks) ----
+
 function normalizeHex(hex) {
   try {
     if (!hex) return null;
@@ -116,7 +112,7 @@ function getHostname(u) {
   }
 }
 
-// ---- Storage sanitization (defensive; logic preserved) ----
+
 function sanitizePrefs(input) {
   const out = {};
   const i = input || {};
@@ -151,10 +147,10 @@ function normalizeHost(input) {
   }
 }
 
-// ---- Optional in-memory cache (unchanged usage) ----
+
 const lastTabColors = new Map();
 
-// ---- Privileged operations: wrap in try/catch ----
+
 async function safeThemeUpdate(windowId, theme) {
   try {
     if (Number.isInteger(windowId) && theme && typeof theme === 'object') {
@@ -209,7 +205,7 @@ async function safeSetStorage(obj) {
   }
 }
 
-// ---- Message routing (logic preserved; added validation) ----
+
 browser.runtime.onMessage.addListener(async (msg, sender) => {
   try {
     if (!msg || typeof msg !== 'object') return;
@@ -240,7 +236,7 @@ browser.runtime.onMessage.addListener(async (msg, sender) => {
 
     if (msg.type !== 'ambient-theme-colors') return;
 
-    // Read settings defensively
+    
     const settings = await safeGetStorage(['enabled', 'minContrast', 'perSiteDisabled', 'toolbarBlend']);
     const enabled = settings.enabled !== false;
     const minContrast = settings.minContrast;
@@ -261,7 +257,7 @@ browser.runtime.onMessage.addListener(async (msg, sender) => {
       return;
     }
 
-    // Validate payload colors and compute theme (logic preserved)
+    
     const base = normalizeHex(msg?.payload?.primary) || '#2B2B2B';
     const acc = normalizeHex(msg?.payload?.accent) || base;
     const tabText = getReadableTextColor(base, minContrast);
@@ -279,7 +275,7 @@ browser.runtime.onMessage.addListener(async (msg, sender) => {
       }
     };
 
-    // Cache last colors for potential future use (unchanged intention)
+    
     if (Number.isInteger(sender?.tab?.id)) {
       lastTabColors.set(sender.tab.id, { base, acc, tabText, toolbar });
     }
@@ -292,7 +288,7 @@ browser.runtime.onMessage.addListener(async (msg, sender) => {
   }
 });
 
-// ---- Tab/window event wiring (logic preserved; added guards) ----
+
 browser.tabs.onActivated.addListener(async () => {
   try { await requestActiveTabColors(); } catch (e) { logDebug('onActivated error', e); }
 });
@@ -307,7 +303,7 @@ browser.windows.onFocusChanged.addListener(() => {
   try { requestActiveTabColors().catch(e => logDebug('onFocusChanged error', e)); } catch (e) { logDebug('onFocusChanged outer error', e); }
 });
 
-// ---- Active tab refresh (logic preserved; added reset on non-http/disabled) ----
+
 async function requestActiveTabColors() {
   try {
     const tab = await safeQueryActiveTab();
@@ -324,7 +320,7 @@ async function requestActiveTabColors() {
     await safeSendToTab(tab.id, { type: 'ambient-theme-request' });
   } catch (e) {
     logDebug('requestActiveTabColors error', e);
-    // As a safety, attempt to reset if we know the window
+    
     try {
       const tab = await safeQueryActiveTab();
       if (tab && Number.isInteger(tab.windowId)) await safeThemeReset(tab.windowId);

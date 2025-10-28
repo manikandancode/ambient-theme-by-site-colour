@@ -1,15 +1,5 @@
-// content/contentScript.js (hardened: validation + error handling; logic unchanged)
-//
-// Extraction priority:
-// 1) <meta name="theme-color">
-// 2) Logo-like element (header/logo heuristics)
-// 3) Favicon dominant color
-// 4) Primary button color
-// 5) Largest visible image (CORS-safe sampling with taint checks)
-// 6) Page background color
-
 (function () {
-  // Avoid running in tiny or offscreen iframes
+  
   try {
     if (window.top !== window) {
       const w = document.documentElement?.clientWidth || 0;
@@ -17,12 +7,12 @@
       if (w < 2 || h < 2) return;
     }
   } catch {
-    // cross-origin frame access blocked; proceed
+    
   }
 
   let prefs = { enabled: true, sampleScale: 0.12 };
 
-  // Defensive preference read
+  
   try {
     browser.storage?.local?.get({ enabled: true, sampleScale: 0.12 }).then(
       got => {
@@ -35,11 +25,11 @@
       () => { if (prefs.enabled) scheduleReextract(); }
     );
   } catch {
-    // If storage is unavailable, continue with defaults
+    
     if (prefs.enabled) scheduleReextract();
   }
 
-  // React to background requests (tab switch, focus, navigation complete)
+  
   try {
     browser.runtime.onMessage.addListener((msg) => {
       try {
@@ -47,14 +37,14 @@
           scheduleReextract();
         }
       } catch {
-        // ignore
+        
       }
     });
   } catch {
-    // ignore
+    
   }
 
-  // Debounce extraction to avoid excessive work
+  
   let debounceTimer = null;
   function scheduleReextract() {
     try {
@@ -64,7 +54,7 @@
         reextractAndSend().catch(() => {});
       }, 80);
     } catch {
-      // ignore
+      
     }
   }
 
@@ -72,31 +62,31 @@
     try {
       if (!document || !document.documentElement) return;
 
-      // 1) meta[name="theme-color"]
+      
       const metaTheme = tryMetaThemeColor();
       if (metaTheme) { sendColors(metaTheme, null); return; }
 
-      // 2) Logo-like color
+      
       const logoHex = await tryLogoColor();
       if (logoHex) { sendColors(logoHex, null); return; }
 
-      // 3) Favicon dominant color
+      
       const favHex = await tryFaviconColor();
       if (favHex) { sendColors(favHex, null); return; }
 
-      // 4) Primary button color
+      
       const btnHex = tryPrimaryButtonColor();
       if (btnHex) { sendColors(btnHex, null); return; }
 
-      // 5) Largest visible image dominant color
+      
       const imgHex = await tryLargestImageColor();
       if (imgHex) { sendColors(imgHex, null); return; }
 
-      // 6) Page background color
+      
       const bg = tryPageBackgroundColor();
       if (bg) { sendColors(bg, null); return; }
     } catch {
-      // ignore
+      
     }
   }
 
@@ -109,15 +99,15 @@
           accent: normalizeHex(accent)
         }
       };
-      // Avoid sending empty objects that could confuse the background
+      
       if (!payload.payload.primary && !payload.payload.accent) return;
       browser.runtime.sendMessage(payload).catch(() => {});
     } catch {
-      // ignore
+      
     }
   }
 
-  // --------- Extractors (logic unchanged, wrapped with guards) ---------
+  
 
   function tryMetaThemeColor() {
     try {
@@ -197,7 +187,7 @@
     }
   }
 
-  // --------- Helpers (logic preserved, guarded) ---------
+  
 
   function isElementVisible(el) {
     try {
@@ -228,7 +218,7 @@
         const fill = el.getAttribute('fill') || safeGetComputedStyle(el).color;
         return normalizeHex(fill);
       }
-      // background-image case
+      
       const cs = safeGetComputedStyle(el);
       const bgImg = cs.backgroundImage || '';
       const m = bgImg.match(/url\(["']?([^"')]+)["']?\)/);
@@ -248,7 +238,7 @@
       img.referrerPolicy = 'no-referrer';
       img.src = abs;
 
-      // decode may fail; continue to allow drawImage attempt
+      
       try { await img.decode(); } catch {}
 
       const iw = Number(img.naturalWidth) || 0;
@@ -266,7 +256,7 @@
       try {
         data = ctx.getImageData(0, 0, w, h).data;
       } catch {
-        // tainted canvas; do not read pixels
+        
         return null;
       }
 

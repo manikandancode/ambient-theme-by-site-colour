@@ -15,16 +15,16 @@ document.addEventListener('DOMContentLoaded', async () => {
     perSiteDisabled: {}
   });
 
-  // Defensive read with sanitization
+  
   const storedRaw = await browser.storage.local.get(['enabled', 'minContrast', 'toolbarBlend', 'perSiteDisabled']);
   const prefs = sanitizePrefs(storedRaw, defaults);
 
-  // Initialize UI
+  
   enabledEl.checked = !!prefs.enabled;
   minContrastEl.value = String(prefs.minContrast);
   toolbarBlendEl.value = String(prefs.toolbarBlend);
 
-  // Events
+  
   enabledEl.addEventListener('change', async () => {
     const value = !!enabledEl.checked;
     await safeSet({ enabled: value });
@@ -60,7 +60,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     flash(status, map[host] ? getMsg('hostDisabled') : getMsg('hostEnabled'));
   });
 
-  // --- Helpers ---
+ 
 
   function sanitizePrefs(input, defs) {
     const out = {};
@@ -84,7 +84,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 
   async function safeSet(obj) {
-    // Defensive copy to avoid prototype pollution
+    
     const payload = JSON.parse(JSON.stringify(obj));
     await browser.storage.local.set(payload);
   }
@@ -101,13 +101,13 @@ document.addEventListener('DOMContentLoaded', async () => {
   function normalizeHost(input) {
     const s = String(input || '').trim().toLowerCase();
     if (!s) return '';
-    // Reject protocols, paths, query/hash, wildcard, spaces
+    
     if (s.includes('://') || s.includes('/') || s.includes('?') || s.includes('#') || s.includes('*') || /\s/.test(s)) return '';
-    // Strip port if present
+    
     const [hostOnly] = s.split(':');
     if (!hostOnly || hostOnly.startsWith('.') || hostOnly.endsWith('.')) return '';
     const parts = hostOnly.split('.');
-    // Basic LDH check on ASCII labels; IDN punycode allowed as plain text
+    
     if (parts.some(p => !p || p.length > 63 || p.startsWith('-') || p.endsWith('-') || /[^a-z0-9-]/i.test(p))) return '';
     return hostOnly;
   }

@@ -47,6 +47,10 @@ The add-on does not share data with third parties. There are no external servers
 - The add-on does not inject remote scripts or use remote code.
 - All UI strings are localized safely (text-only), and user inputs (hostnames) are validated before saving.
 
+## Open-source and issues
+- Source code: https://github.com/manikandancode/ambient-theme-by-site-colour
+- Report issues: https://github.com/manikandancode/ambient-theme-by-site-colour/issues
+
 ## Children’s privacy
 The add-on does not target children and does not collect personal data.
 
@@ -54,4 +58,6 @@ The add-on does not target children and does not collect personal data.
 If this policy changes, the updated version and effective date will be posted with the extension release notes. Material changes will be highlighted.
 
 ## Contact
-For questions about this policy or the add-on’s behavior, please open an issue on the project’s repository or contact the author via the add-on listing page.
+Please open an issue on the repository Issues page or use the AMO listing’s contact links:
+- Issues: https://github.com/manikandancode/ambient-theme-by-site-colour/issues
+- Project: https://github.com/manikandancode/ambient-theme-by-site-colour

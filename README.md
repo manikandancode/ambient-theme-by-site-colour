@@ -12,11 +12,11 @@ Automatically adapts Firefox’s UI theme colors to match the current site.
 
 A lightweight content script samples the current page to determine a representative color using this priority order:
 
-1. `<meta name="theme-color">`  
-2. Prominent logo‑like element (header logos, SVGs)  
-3. Favicon dominant color  
-4. Primary button color  
-5. Largest visible image (CORS‑safe; skips if pixel reads are blocked)  
+1. `<meta name="theme-color">`
+2. Prominent logo‑like element (header logos, SVGs)
+3. Favicon dominant color
+4. Primary button color
+5. Largest visible image (CORS‑safe; skips if pixel reads are blocked)
 6. Page background color
 
 The background script then updates the browser theme for the active window using the computed color while keeping text readable and toolbars legible.
@@ -49,7 +49,6 @@ These permissions are used only for local processing and UI updates.
 - Click the toolbar button to open the popup:
   - Toggle “Disable/Enable for this site” to control theming per hostname.
   - Click “More options” for full settings.
-
 - Options page:
   - Enable dynamic theming globally.
   - Adjust “Minimum contrast ratio” (1.0–21.0).
@@ -60,15 +59,14 @@ Changes are saved immediately and apply when you switch tabs, navigate, or refoc
 
 ## First‑run tips
 
-- Start on a regular website (not a special page like `about:newtab` or `addons.mozilla.org`). The popup will be disabled on restricted pages by design. [file:5][file:1]
-- Click the toolbar button. If the site’s colors don’t change immediately, switch to another tab and back or refresh once to let the color extraction run. [file:1][file:3]
-- Use the popup to quickly “Disable for this site” if a site’s color clashes with your theme; click again to re‑enable. This takes effect instantly. [file:5][file:1]
+- Start on a regular website (not a special page like `about:newtab` or `addons.mozilla.org`). The popup will be disabled on restricted pages by design.
+- Click the toolbar button. If the site’s colors don’t change immediately, switch to another tab and back or refresh once to let the color extraction run.
+- Use the popup to quickly “Disable for this site” if a site’s color clashes with your theme; click again to re‑enable. This takes effect instantly.
 - Open Options (More options in the popup) to tune:
-  - Minimum contrast ratio (1.0–21.0) for readability. [file:2]
-  - Toolbar blend (0..1) to keep the toolbar legible while matching the page. [file:2]
-- If images are hosted cross‑origin and block pixel reads, the add‑on automatically falls back to other sources (logo, favicon, theme‑color, background) — no action needed. [file:3]
-- You can revoke site access in Add‑ons Manager at any time. The add‑on will keep working gracefully where access remains. [file:1]
-
+  - Minimum contrast ratio (1.0–21.0) for readability.
+  - Toolbar blend (0..1) to keep the toolbar legible while matching the page.
+- If images are hosted cross‑origin and block pixel reads, the add‑on automatically falls back to other sources (logo, favicon, theme‑color, background) — no action needed.
+- You can revoke site access in Add‑ons Manager at any time. The add‑on will keep working gracefully where access remains.
 
 ## Troubleshooting
 
@@ -80,29 +78,31 @@ Changes are saved immediately and apply when you switch tabs, navigate, or refoc
 ## Development
 
 Structure:
+
 ambient theme by site colour/
 ├─ manifest.json
 ├─ background.js
 ├─ content/
-│ └─ contentScript.js
+│  └─ contentScript.js
 ├─ options/
-│ ├─ options.html
-│ └─ options.js
+│  ├─ options.html
+│  └─ options.js
 ├─ popup/
-│ ├─ popup.html
-│ └─ popup.js
+│  ├─ popup.html
+│  └─ popup.js
 ├─ icons/
-│ ├─ icon-16.png
-│ ├─ icon-32.png
-│ ├─ icon-48.png
-│ ├─ icon-96.png
-│ └─ icon-128.png
+│  ├─ icon-16.png
+│  ├─ icon-32.png
+│  ├─ icon-48.png
+│  ├─ icon-96.png
+│  └─ icon-128.png
 ├─ _locales/
-│ └─ en/
-│ └─ messages.json
+│  └─ en/
+│     └─ messages.json
 ├─ LICENSE
 ├─ PRIVACY.md
 └─ README.md
+
 
 Notable implementation notes:
 - Internationalization (i18n): All visible strings live in `_locales/en/messages.json`; UI uses `data-i18n` and the scripts set `textContent` from `browser.i18n.getMessage`.
@@ -120,14 +120,14 @@ Notable implementation notes:
 - Temporary install for development:
   - Visit `about:debugging` → “This Firefox” → “Load Temporary Add-on…”
   - Select `manifest.json`.
-
 - Signing for distribution:
   - Submit the ZIP/XPI to AMO. All Firefox add-ons require signing.
 
-## License
-
-See LICENSE for details.
-
 ## Support
 
-Open an issue on the project repository or use the AMO listing’s contact links.
+- Issues: https://github.com/manikandancode/ambient-theme-by-site-colour/issues
+- Project: https://github.com/manikandancode/ambient-theme-by-site-colour
+
+## License
+
+MIT license. See LICENSE for details.

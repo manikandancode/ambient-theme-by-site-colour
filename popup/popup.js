@@ -3,7 +3,7 @@
 
   const toggleBtn = document.getElementById('toggle');
 
-  // Safely get the active tab and derive a normalized host
+  
   const [tab] = await browser.tabs.query({ active: true, currentWindow: true });
   const url = typeof tab?.url === 'string' ? tab.url : '';
   const { host, isHttp } = parseHttpHost(url);
@@ -13,7 +13,7 @@
     toggleBtn.title = getMsg('unavailableHere') || 'Unavailable on this page';
   }
 
-  // Defensive read of perSiteDisabled
+  
   const initial = await browser.storage.local.get('perSiteDisabled');
   const map = sanitizeHostMap(initial?.perSiteDisabled || {});
   setToggleText(!!map[host]);
@@ -21,16 +21,16 @@
   toggleBtn.addEventListener('click', async () => {
     if (!host || !isHttp) return;
 
-    // Flip flag with defensive storage round-trip
+    
     const s = await browser.storage.local.get('perSiteDisabled');
     const current = sanitizeHostMap(s?.perSiteDisabled || {});
     current[host] = !current[host];
 
-    // Defensive set (no prototype pollution)
+    
     await browser.storage.local.set(JSON.parse(JSON.stringify({ perSiteDisabled: current })));
     setToggleText(current[host]);
 
-    // Ask background to refresh or clear theme immediately
+    
     try {
       const [currTab] = await browser.tabs.query({ active: true, currentWindow: true });
       if (currTab && Number.isInteger(currTab.id) && Number.isInteger(currTab.windowId)) {
@@ -42,11 +42,11 @@
         });
       }
     } catch {
-      // ignore errors to keep UX smooth
+      
     }
   });
 
-  // --- Helpers ---
+  
 
   function setToggleText(disabled) {
     toggleBtn.textContent = disabled
@@ -59,7 +59,7 @@
     for (const n of nodes) {
       const key = n.getAttribute('data-i18n');
       const msg = getMsg(key);
-      if (msg) n.textContent = msg; // text-only (no HTML injection)
+      if (msg) n.textContent = msg; 
     }
     const titleMsg = getMsg('popupTitle');
     if (titleMsg) document.title = titleMsg;
