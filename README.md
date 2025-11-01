@@ -11,6 +11,7 @@ Automatically adapts Firefox’s UI theme colors to match the current site.
 ## Installation
 
 Download and Install from Firefox Official Add-ons Extensions page: 
+
 https://addons.mozilla.org/en-US/firefox/addon/ambient-theme-by-site-colour/
 
 ## How it works
