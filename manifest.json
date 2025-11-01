@@ -3,9 +3,9 @@
   "name": "__MSG_extensionName__",
   "default_locale": "en",
   "description": "__MSG_extensionDescription__",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "author": "Manikandan D",
-  "homepage_url": "https://example.com/ambient-theme",
+  "homepage_url": "https://github.com/manikandancode/ambient-theme-by-site-colour",
   "icons": {
     "16": "icons/icon-16.png",
     "32": "icons/icon-32.png",
