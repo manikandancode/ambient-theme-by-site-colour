@@ -8,6 +8,11 @@ Automatically adapts Firefox’s UI theme colors to match the current site.
 - Per‑site quick toggle from the popup and full controls in Options.
 - All processing is on‑device; no data is collected or sent anywhere.
 
+## Installation
+
+Download and Install from Firefox Official Add-ons Extensions page: 
+https://addons.mozilla.org/en-US/firefox/addon/ambient-theme-by-site-colour/
+
 ## How it works
 
 A lightweight content script samples the current page to determine a representative color using this priority order:
